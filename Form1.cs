@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace MTZ_SUP                     
+namespace Forms1                     
 {
     public partial class Form1 : Form
     {
