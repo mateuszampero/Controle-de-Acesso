@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleAcessoAPI", "ControleAcessoAPI\ControleAcessoAPI.csproj", "{D3D1653D-6997-42B4-985E-953F226783DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3D1653D-6997-42B4-985E-953F226783DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3D1653D-6997-42B4-985E-953F226783DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3D1653D-6997-42B4-985E-953F226783DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3D1653D-6997-42B4-985E-953F226783DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {119A511E-33D6-4C80-A247-20C544D1E047}
+	EndGlobalSection
+EndGlobal
