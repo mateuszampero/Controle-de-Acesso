@@ -42,7 +42,6 @@ namespace executável
         }
 
 
-        // Novo método assíncrono separado:
         private async Task LoopStatusAsync(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
@@ -54,14 +53,14 @@ namespace executável
 
                 try
                 {
-                    // -- BLOQUEIO REPETIDO  ------------------------------------------
+                    // faz o block 
                     if (!estaNaEmpresa && logoffFlagged && string.IsNullOrWhiteSpace(usuario))
                     {
                         await Task.Delay(TimeSpan.FromSeconds(30), token);
-                        continue;                                  // nem chega a BD
+                        continue;                                  
                     }
 
-                    // -- DENTRO DA EMPRESA  -----------------------------------------
+                    // se estiver na empresa
                     if (estaNaEmpresa)
                     {
                         if (logoffFlagged) File.Delete(LogoffFlag);  // limpa flag
@@ -69,7 +68,7 @@ namespace executável
                         _autorizadoHomeOffice = await VerificarPermissaoHomeOffice();
                         File.WriteAllText(PermissaoFile, _autorizadoHomeOffice.ToString());
                     }
-                    // -- FORA DA EMPRESA  -------------------------------------------
+                    // se estiver fora do ip empresa
                     else
                     {
                         if (File.Exists(PermissaoFile))
@@ -83,12 +82,11 @@ namespace executável
                                 $"{DateTime.Now:HH:mm:ss} | Vai logoff. IP: {ipAtual}\r\n");
 
                             ForcarLogoff();
-                            File.WriteAllText(LogoffFlag, DateTime.Now.ToString("o")); // cria flag
-                            logoffFlagged = true;   // para as próximas passagens
+                            File.WriteAllText(LogoffFlag, DateTime.Now.ToString("o")); 
+                            logoffFlagged = true;   
                         }
                     }
 
-                    // **ENVIA STATUS SÓ AQUI, DEPOIS DOS AJUSTES**
                     await EnviarStatusParaAP1(usuario, ipAtual, estaNaEmpresa);
                 }
                 catch (Exception ex)
@@ -147,7 +145,7 @@ namespace executável
                 Usuario = usuario,
                 IpAtual = ipAtual,
                 EstaNaEmpresa = estaNaEmpresa,
-                DataHora = DateTime.UtcNow   //  <-- em UTC, virá com "Z"
+                DataHora = DateTime.UtcNow   "
             };
             try
             {
@@ -216,7 +214,6 @@ namespace executável
             }
         }
 
-        // interop
         [DllImport("kernel32.dll")]
         private static extern uint WTSGetActiveConsoleSessionId();
 
