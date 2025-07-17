@@ -1,2 +1,10 @@
 # Controle-de-Acesso
 O Sistema de Controle de Acesso é um conjunto integrado de três componentes — Aplicativo do Console (executável), API (API Web do Asp.net core), Controle e Painel de Monitoramento (Windows Forms) — criado para evitar o uso não autorizado de notebooks corporativos fora da rede da empresa.
+
+Este projeto foi desenvolvido para apoiar políticas de segurança física e lógica de dispositivos móveis da empresa. Muitas organizações enfrentam o risco de funcionários ou terceiros levarem notebooks corporativos sem autorização, mantendo acesso a dados sensíveis. Para mitigar isso, foi implementada uma solução que monitora a conectividade de cada máquina com a rede corporativa e aplica controle de sessão quando o equipamento sai do ambiente autorizado.
+
+O executável, instalado nos notebooks Windows, monitora a conectividade com um endereço ou faixa de IPs associados à infraestrutura corporativa (rede interna ou VPN homologada). Se a máquina estiver fora dessa rede, o agente dispara um logoff forçado do usuário ativo — evitando que dados e aplicativos corporativos permaneçam acessíveis em contexto não autorizado. O agente também coleta telemetria básica (nome da máquina, usuário logado, IP atual, status, último login) e envia essas informações para o Forms a cada 15 segundos.
+
+A API centraliza a comunicação entre os agentes e o back-end no servidor Windows Server 2012 (IIS - Internet Information Services). Ela recebe os eventos vindos das estações, armazena/atualiza o estado de cada dispositivo e expõe endpoints autenticados consumidos pelo painel de monitoramento.
+
+O Painel de Monitoramento (Forms) fornece visualização em tempo (quase) real dos notebooks. A equipe de TI consegue ver quais máquinas estão conectadas, quais estão offline, horários do último check-in, IP de origem e outros metadados citados, além de ter um campo que possibilita a saída desse notebook se for aprovado (Quando o campo é marcado, ele envia um comando para o executável e o desabilita para a pessoa usar o notebook fora da empresa). Isso facilita auditorias rápidas, inventário de mobilidade e resposta a incidentes (por exemplo, equipamento extraviado).
