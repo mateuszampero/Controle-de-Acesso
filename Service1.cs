@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace MTZ_SUP.S
+namespace executável
 {
     public partial class Service1 : ServiceBase
     {
