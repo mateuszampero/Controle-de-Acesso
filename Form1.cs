@@ -17,7 +17,6 @@ namespace Forms1
         private HttpClient _httpClient = new HttpClient();
         private const string BaseUrl = "http://00.00.00.00/api";
         private List<ComputadorModel> _computadores; 
-        //private readonly Timer _refreshTimer = new Timer();
         private readonly Bitmap _dotGreen = CreateDot(Color.Green);
         private readonly Bitmap _dotRed = CreateDot(Color.Red);
 
@@ -36,11 +35,6 @@ namespace Forms1
         public Form1()
         {
             InitializeComponent();
-
-            //_refreshTimer.Interval = 300_000; // 300 000 ms = 5 m
-            //_refreshTimer.Tick += async (_, __) => await CarregarComputadores();
-            //_refreshTimer.Start();
-
             this.FormBorderStyle = FormBorderStyle.FixedSingle;  
             this.MaximizeBox = false;                        
             this.MinimizeBox = true;
@@ -57,33 +51,32 @@ namespace Forms1
                 dataGridView2.Rows.Clear();
                 foreach (var c in _computadores)
                 {
-                    /* ─────────────  NOVO BLOCO  ───────────── */
-                    // 1) Hora que veio do banco
+                   
+                    // vindo do BD
                     DateTime raw = c.UltimaVerificacao ?? DateTime.MinValue;
 
-                    // 2) Se Kind ainda for Unspecified, trate-o como UTC
+                    // Se Kind ainda for Unspecified, vai tratar como UTC
                     if (raw.Kind == DateTimeKind.Unspecified)
                         raw = DateTime.SpecifyKind(raw, DateTimeKind.Utc);
 
-                    // 3) Converte para horário local do PC
+                    // Converte para horário local do PC
                     DateTime lastLocal = raw == DateTime.MinValue ? raw : raw.ToLocalTime();
 
-                    // 4) Decide se está online (40 s é bom para batidas de 15 s)
+                    // 40 segundos para chek se o usuário está online
                     bool online = (DateTime.Now - lastLocal) < TimeSpan.FromSeconds(40);
-                    /* ──────────  FIM DO NOVO BLOCO  ────────── */
 
-                    // Decide texto do status
+                  
                     string statusText = !online
                         ? "Desconectado"
                         : (c.EstaNaEmpresa == true ? "Na Empresa" : "Fora da Empresa");
 
                     dataGridView2.Rows.Add(
-                        false,                                // Selecionar
-                        online ? _dotGreen : _dotRed,         // ícone
+                        false,                                
+                        online ? _dotGreen : _dotRed,         
                         c.Nome,
                         c.Usuario,
                         c.IpAtual,
-                        statusText,                           // ← continua igual
+                        statusText,                          
                         lastLocal == DateTime.MinValue ? "" : lastLocal.ToString("g"),
                         c.HomeOfficeAutorizado
                     );
